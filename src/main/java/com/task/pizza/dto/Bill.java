@@ -17,12 +17,24 @@ public class Bill implements Serializable {
                 List<BillRecord> drinks,
                 List<BillRecord> extras,
                 LocalDateTime createdAt,
-                double total) {
+                String discountType,
+                double discountAmount,
+                double discountPercent,
+                double freeCoffeeDiscount,
+                double secondPizzaFreeDiscount,
+                double total,
+                double tips) {
         this.pizzas = pizzas;
         this.drinks = drinks;
         this.extras = extras;
         this.createdAt = createdAt;
+        this.discountType = discountType;
+        this.discountAmount = discountAmount;
+        this.discountPercent = discountPercent;
+        this.freeCoffeeDiscount = freeCoffeeDiscount;
+        this.secondPizzaFreeDiscount = secondPizzaFreeDiscount;
         this.total = total;
+        this.tips = tips;
     }
 
     @Id
@@ -44,7 +56,24 @@ public class Bill implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime createdAt;
 
+    private String discountType;
+
+    @Column(nullable = true)
+    private double discountAmount;
+
+    @Column(nullable = true)
+    private double discountPercent;
+
+    @Column(nullable = true)
+    private double freeCoffeeDiscount;
+
+    @Column(nullable = true)
+    private double secondPizzaFreeDiscount;
+
     private double total;
+
+    @Column(nullable = true)
+    private double tips;
 
     public List<BillRecord> getPizzas() {
         return pizzas;
@@ -84,5 +113,53 @@ public class Bill implements Serializable {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public double getTips() {
+        return tips;
+    }
+
+    public void setTips(double tips) {
+        this.tips = tips;
+    }
+
+    public String getDiscountType() {
+        return discountType;
+    }
+
+    public void setDiscountType(String discountType) {
+        this.discountType = discountType;
+    }
+
+    public double getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(double discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
+    }
+
+    public double getFreeCoffeeDiscount() {
+        return freeCoffeeDiscount;
+    }
+
+    public void setFreeCoffeeDiscount(double freeCoffeeDiscount) {
+        this.freeCoffeeDiscount = freeCoffeeDiscount;
+    }
+
+    public double getSecondPizzaFreeDiscount() {
+        return secondPizzaFreeDiscount;
+    }
+
+    public void setSecondPizzaFreeDiscount(double secondPizzaFreeDiscount) {
+        this.secondPizzaFreeDiscount = secondPizzaFreeDiscount;
     }
 }

@@ -10,12 +10,16 @@ public class OrderDto {
     public OrderDto(boolean hasPizza,
                     boolean hasDrink,
                     boolean hasExtras,
+                    boolean hasDiscount,
+                    long discountId,
                     List<OrderRecord> pizzas,
                     List<OrderRecord> drinks,
                     List<OrderRecord> extras) {
         this.hasPizza = hasPizza;
         this.hasDrink = hasDrink;
         this.hasExtras = hasExtras;
+        this.hasDiscount = hasDiscount;
+        this.discountId = discountId;
         this.pizzas = pizzas;
         this.drinks = drinks;
         this.extras = extras;
@@ -26,6 +30,10 @@ public class OrderDto {
     private boolean hasDrink;
 
     private boolean hasExtras;
+
+    private boolean hasDiscount;
+
+    private long discountId;
 
     private List<OrderRecord> pizzas;
 
@@ -79,5 +87,21 @@ public class OrderDto {
 
     public void setExtras(List<OrderRecord> extras) {
         this.extras = extras;
+    }
+
+    public boolean isHasDiscount() {
+        return hasDiscount;
+    }
+
+    public void setHasDiscount(boolean hasDiscount) {
+        this.hasDiscount = hasDiscount;
+    }
+
+    public long getDiscountId() {
+        return discountId;
+    }
+
+    public void setDiscountId(long discountId) {
+        this.discountId = discountId;
     }
 }
