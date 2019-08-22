@@ -2,13 +2,12 @@ package com.task.pizza.controller;
 
 //import com.task.pizza.domain.Role;
 import com.task.pizza.domain.User;
-import com.task.pizza.repos.UserRepo;
+import com.task.pizza.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Collections;
 import java.util.Map;
 
 @Controller

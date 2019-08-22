@@ -1,7 +1,7 @@
 package com.task.pizza.service;
 
 /*
-import com.task.pizza.repos.UserRepo;
+import com.task.pizza.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

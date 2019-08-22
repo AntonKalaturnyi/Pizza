@@ -1,4 +1,4 @@
-package com.task.pizza.repos;
+package com.task.pizza.repo;
 
 import com.task.pizza.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
