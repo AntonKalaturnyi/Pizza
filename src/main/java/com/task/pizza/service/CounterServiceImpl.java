@@ -9,6 +9,8 @@ import com.task.pizza.dto.BillRecord;
 import com.task.pizza.dto.OrderDto;
 import com.task.pizza.dto.OrderRecord;
 import com.task.pizza.repo.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +35,9 @@ public class CounterServiceImpl implements CounterService {
 
     private final DiscountRepo discountRepo;
 
-    private static final DecimalFormat formatter = new  DecimalFormat("#0.00");
+    private Logger logger = LoggerFactory.getLogger(CounterServiceImpl.class);
 
+    private static final DecimalFormat formatter = new  DecimalFormat("#0.00");
 
     @Autowired
     public CounterServiceImpl(PizzaRepo pizzaRepo, BillRepo billRepo, BillRecordRepo billRecordRepo, DrinkRepo drinkRepo, ExtraRepo extraRepo, DiscountRepo discountRepo) {
@@ -56,6 +59,8 @@ public class CounterServiceImpl implements CounterService {
 
         bill.setCreatedAt(LocalDateTime.now());
 
+
+        if (LocalDateTime.now().getDayOfWeek().equals(DayOfWeek.MONDAY))
         // Free monday coffee discount
       //  bill.setCreatedAt(LocalDateTime.of(2019, Month.AUGUST, 26, 14, 15));
 
@@ -94,7 +99,8 @@ public class CounterServiceImpl implements CounterService {
             bill.setDiscountType(discount.getName());
             bill.setDiscountAmount(Double.parseDouble(formatter.format(discountAmount)));
             total = total - discountAmount;
-            orderDto.setHasDiscount(false);
+            logger.trace("Independence day discount: " + discountAmount);
+            orderDto.setHasDiscount(true);
         }
 
         // Programmer's day discount
@@ -105,7 +111,8 @@ public class CounterServiceImpl implements CounterService {
             bill.setDiscountPercent(discount.getPercent() * 100);
             bill.setDiscountAmount(Double.parseDouble(formatter.format(discountAmount)));
             total = total - discountAmount;
-            orderDto.setHasDiscount(false);
+            logger.trace("Programmer day discount: " + discountAmount);
+            orderDto.setHasDiscount(true);
         }
 
         // Christmas discount
@@ -116,7 +123,8 @@ public class CounterServiceImpl implements CounterService {
             bill.setDiscountAmount(Double.parseDouble(formatter.format(discountAmount)));
             bill.setDiscountPercent(discount.getPercent() * 100);
             total = total - discountAmount;
-            orderDto.setHasDiscount(false);
+            logger.trace("Christmas discount: " + discountAmount);
+            orderDto.setHasDiscount(true);
         }
 
         // Regular discount
@@ -127,6 +135,7 @@ public class CounterServiceImpl implements CounterService {
             bill.setDiscountAmount(Double.parseDouble(formatter.format(discountAmount)));
             bill.setDiscountPercent(discount.getPercent() * 100);
             total = total - discountAmount;
+            logger.trace("Regular discount: " + discountAmount);
         } else {
             bill.setDiscountType("None");
         }
@@ -165,6 +174,7 @@ public class CounterServiceImpl implements CounterService {
         }
         bill.setSecondPizzaFreeDiscount(secondPizzaFreeDiscount);
         bill.setPizzas(pizzas);
+        logger.trace("Pizza subtotal: " + subtotal);
         return subtotal;
     }
 
@@ -187,8 +197,10 @@ public class CounterServiceImpl implements CounterService {
                 subtotal += orderedDrink.getPrice() * orderRecord.getAmount();
             }
         }
+        logger.trace("Free monday coffee discount - " + (coffeeDiscount > 0) + ": " + coffeeDiscount);
         bill.setFreeCoffeeDiscount( Double.parseDouble(formatter.format(coffeeDiscount)));
         bill.setDrinks(drinks);
+        logger.trace("Drinks subtotal: " + subtotal);
         return subtotal;
     }
 
@@ -203,6 +215,7 @@ public class CounterServiceImpl implements CounterService {
             subtotal += orderedExtra.getPrice() * orderRecord.getAmount();
         }
         bill.setExtras(extras);
+        logger.trace("Extras subtotal: " + subtotal);
         return subtotal;
 
     }

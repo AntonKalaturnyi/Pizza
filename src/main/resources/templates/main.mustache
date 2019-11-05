@@ -1,6 +1,7 @@
 <html>
 
 <body>
+}MAIN PAGE{
     <div>
         <form action="/logout" method="post">
             <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
@@ -21,13 +22,13 @@
         <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
         <button type="submit">Найти</button>
     </form>
-    {{#messages}}
+<!--    {{#messages}}
     <div>
         <b>{{id}}</b>
         <span>{{text}}</span>
         <i>{{tag}}</i>
         <strong>{{authorName}}</strong>
     </div>
-    {{/messages}}
+    {{/messages}}-->
 </body>
 </html>

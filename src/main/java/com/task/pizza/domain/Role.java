@@ -4,6 +4,4 @@ package com.task.pizza.domain;
 
 public enum Role  {
     USER;
-
-
 }
