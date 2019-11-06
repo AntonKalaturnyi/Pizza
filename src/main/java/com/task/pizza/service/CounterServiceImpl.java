@@ -129,7 +129,7 @@ public class CounterServiceImpl implements CounterService {
 
         // Regular discount
         if (orderDto.isHasDiscount()) {
-            Discount discount = discountRepo.findById(orderDto.getDiscountId()).get();
+            Discount discount = discountRepo.findByName("Regular");
             discountAmount = total * discount.getPercent();
             bill.setDiscountType(discount.getName());
             bill.setDiscountAmount(Double.parseDouble(formatter.format(discountAmount)));
